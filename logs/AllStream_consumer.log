@@ -1,16 +1,8 @@
-2023-10-02 11:48:42,857.AllStream_consumer.INFO ==================================================
-2023-10-02 11:48:43,001.AllStream_consumer.INFO Today is 2023-10-02 at 11:48 AM
-2023-10-02 11:48:43,063.AllStream_consumer.INFO Running on: nt Windows 10
-2023-10-02 11:48:43,086.AllStream_consumer.INFO Python version:  3.10.9
-2023-10-02 11:48:43,104.AllStream_consumer.INFO Python path: C:\Users\amaar\anaconda3
-2023-10-02 11:48:43,112.AllStream_consumer.INFO Working dir: C:\Users\amaar\OneDrive\Desktop\NW\Data Streaming\streaming-07-final-project
-2023-10-02 11:48:43,138.AllStream_consumer.INFO ==================================================
-2023-10-02 11:48:43,265.AllStream_consumer.INFO  [*] Ready for work. To exit press CTRL+C
-2023-10-02 11:48:43,273.AllStream_consumer.INFO  [x] Received 5/22/2021 12:21,87.6
-2023-10-02 11:48:43,294.AllStream_consumer.INFO [X] Smoker Temperature Received and Processed.
-2023-10-02 11:48:43,307.AllStream_consumer.INFO  [x] Received 5/22/2021 13:22,182.6
-2023-10-02 11:48:43,312.AllStream_consumer.INFO [X] Smoker Temperature Received and Processed.
-2023-10-02 11:48:43,319.AllStream_consumer.INFO  [x] Received 5/22/2021 12:22,86.3
-2023-10-02 11:48:43,320.AllStream_consumer.INFO Smoker Temperature Alert at 5/22/2021 12:22! - Smoker Temperature Has Changed More than 15 Degrees.
-2023-10-02 11:48:43,321.AllStream_consumer.ERROR An Error Occured While Processing Smoker Temperature.
-2023-10-02 11:48:43,321.AllStream_consumer.ERROR The error says: name 'createAndSendEmailAlert' is not defined
+2023-10-02 21:24:49,895.AllStream_consumer.INFO ==================================================
+2023-10-02 21:24:50,045.AllStream_consumer.INFO Today is 2023-10-02 at 09:24 PM
+2023-10-02 21:24:50,247.AllStream_consumer.INFO Running on: nt Windows 10
+2023-10-02 21:24:50,330.AllStream_consumer.INFO Python version:  3.10.9
+2023-10-02 21:24:50,478.AllStream_consumer.INFO Python path: C:\Users\amaar\anaconda3
+2023-10-02 21:24:50,575.AllStream_consumer.INFO Working dir: C:\Users\amaar\OneDrive\Desktop\NW\Data Streaming\streaming-07-final-project
+2023-10-02 21:24:50,688.AllStream_consumer.INFO ==================================================
+2023-10-02 21:24:51,728.AllStream_consumer.INFO  [*] Ready for work. To exit press CTRL+C

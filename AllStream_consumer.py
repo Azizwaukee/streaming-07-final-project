@@ -14,8 +14,10 @@ import time
 import os
 import csv
 from collections import deque
+
+from pika import callback
 from util_logger import setup_logger
-from email_alert import createAndSendEmailAlert
+
 
 logger, logname = setup_logger(__file__)
 
@@ -24,7 +26,7 @@ all_stream_deque = deque(maxlen=5)
 
 
 # define a callback function to be called when a message is received
-def all_stream callback(ch, method, properties, body):
+def AllStream_callback(ch, method, properties, body):
     """ Define behavior on getting a message.
         This function will be called each time a message is received.
         The function must accept the four arguments shown here.
@@ -37,36 +39,25 @@ def all_stream callback(ch, method, properties, body):
     # Set all stream Information
     time_change = []
     try: 
-        # Smoker Message
+        #AllStream Message
         AllStream_message = body.decode().split(",")
         # Check for valid time
         if AllStream_message[1] == 'Blank':
             # Convert to float
-            all_stream_info = float(AllStream_message[1])
+            AllStream = float(AllStream_message[1])
             # Check for valid timestamp
-            time_stamp = AllStream_message[0]
+            AllStream_timestamp = AllStream_message[0]
             # Append to Deque
-            all_stream_deque.append(all_stram_info)
+            all_stream_deque.append(AllStream)
             
             # Check for time change from previous time
-            if len(all_stream_deque) > 1:
-                time_change = [
-                    all_stream_deque[i] - all_stream__deque[-1] 
-                                      for i in range(0, (all_stream_deque) - 1), 1)
+            if len (all_stream_deque) > 1:
+                temperature_change = [
+                    all_stream_deque[i] - all_stream_deque[-1] 
+                                    for i in range(0, (len (all_stream_deque) - 1), 1)
                 ]
                 
-            # Check for time change from previous time outside tolerable (15)
-            if any(value > 15 for value in time_change):
-                alert_message = True
-                
-                if alert_message:
-                    logger.info(f"all_stream_time Alert at {times_tamp}! - Duration for time Has Changed
-
-                    # Send Email Alert
-                    email_subject = f"all_stream_time Alert at {time_stamp}"
-                    email_body = f"At {time_stamp}, All stream duration viewer recorded."
-                    createAndSendEmailAlert(email_subject, email_body)
-                    
+                              
         # Send Confirmation Report
         logger.info("[X] AllStream duration Received and Recorded.")
         # Delete Message from Queue after Processing
@@ -78,7 +69,7 @@ def all_stream callback(ch, method, properties, body):
     
 
 # define a main function to run the program
-def main(hn: str = "localhost", qn: str = task_queue"):
+def main(hn: str = "localhost", qn: str = "task_queue"):
     """ Continuously listen for task messages on a named queue."""
 
     # when a statement can go wrong, use a try-except block
@@ -96,6 +87,7 @@ def main(hn: str = "localhost", qn: str = task_queue"):
         print()
         sys.exit(1)
 
+    
     try:
         # use the connection to create a communication channel
         channel = connection.channel()
@@ -119,7 +111,7 @@ def main(hn: str = "localhost", qn: str = task_queue"):
         # configure the channel to listen on a specific queue,  
         # use the callback function named callback,
         # and do not auto-acknowledge the message (let the callback handle it)
-        channel.basic_consume( queue=qn, on_message_callback=all_stream_callback, auto_ack=False)
+        channel.basic_consume( queue=qn, on_message_callback=AllStream_callback, auto_ack=False)
 
         # print a message to the console for the user
         logger.info(" [*] Ready for work. To exit press CTRL+C")
@@ -141,11 +133,21 @@ def main(hn: str = "localhost", qn: str = task_queue"):
         logger.info("\nClosing connection. Have a good day.\n")
         connection.close()
 
+def read_tasks_from_csv(file_name):
+    """Read tasks from a CSV file and return them as a list."""
+    tasks = []
+    with open(file_name, "r") as input_file:
+        reader = csv.reader(input_file)
+        for row in reader:
+            if row:
+                tasks.append(row[0])  # Extract the task from the first column
+    return tasks
 
 # Standard Python idiom to indicate main program entry point
 # This allows us to import this module and use its functions
 # without executing the code below.
 # If this is the program being run, then execute the code below
 if __name__ == "__main__":
+
     # call the main function with the information needed
     main("localhost", "01-allstream_")

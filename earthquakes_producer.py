@@ -49,15 +49,15 @@ def send_message(host: str, first_queue_name: str, second_queue_name: str, third
         # this is a convenience to clear the queue before running        
         ch.queue_delete(queue=first_queue_name)
         ch.queue_delete(queue=second_queue_name)
-        ch.queue_delete(queue=third_queue_name)
+    
         # use the channel to declare a durable queue
         # a durable queue will survive a RabbitMQ server restart
         # and help ensure messages are processed in order
         # messages will not be deleted until the consumer acknowledges
         ch.queue_declare(queue=first_queue_name, durable=True)
         ch.queue_declare(queue=second_queue_name, durable=True)
-        ch.queue_declare(queue=third_queue_name, durable=True)
-        # Read the tasks.csv file and send each task to the queue
+        
+        # Read the earthquakes.csv file and send each task to the queue
         with open(input_file, 'r') as input_file:
             reader = csv.reader(input_file)
             # skip the header row
@@ -65,18 +65,18 @@ def send_message(host: str, first_queue_name: str, second_queue_name: str, third
             logger.info("Skipping header row")
             # for each row in the file
             for row in reader:
-                # get row variables
-                time_stamp, all_stream_info, maxviewer, duration = row
+                # get row variablesy
+                time_stamp, magnitude, place, longitude = row
                 
                 # create a message to send to the queue
-                message1 = time_stamp, all_stream_info
-                message2 = time_stamp, maxviewer
-                message3 = time_stamp, duration
+                message1 = time_stamp, magnitude
+                message2 = time_stamp, place
+            
                 
                 # encode the messages
                 message1_encode = "," .join(message1).encode()
                 message2_encode = "," .join(message2).encode()
-                message3_encode = "," .join(message3).encode()              
+                          
                 
                 # use the channel to publish a message to the queue
                 # every message passes through an exchange
@@ -88,9 +88,6 @@ def send_message(host: str, first_queue_name: str, second_queue_name: str, third
                 # print a message to the console for the user
                 logger.info(f" [x] Sent {message2} to {second_queue_name}")
                 # use the channel to publish a message to the queue
-                ch.basic_publish(exchange="", routing_key=third_queue_name, body=message3_encode)
-                # print a message to the console for the user
-                logger.info(f" [x] Sent {message3} to {third_queue_name}")
                 # Wait 30 seconds between each message
                 time.sleep(30)
                 
@@ -113,7 +110,7 @@ if __name__ == "__main__":
     # send the message to the queue
 
     # Read duration data from CSV file and send to RabbitMQ
-        csv_file_name = "all_stream_info.csv"
+        csv_file_name = "earthquakes.csv"
         sleep_interval = 30  # Sleep for 30 seconds (half a minute)
 
-    send_message("localhost","01-allstream","02-maxviewer","03-duration","all_stream_info.csv")  
+    send_message("localhost","01-magnitude","02-place","earthquakes.csv") 

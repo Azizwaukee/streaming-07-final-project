@@ -2,74 +2,35 @@
     This program listens for work messages contiously. 
     Start multiple versions to add more workers.  
 
-    Author: Amaara Aziz
-    Date: September 29, 2023
-
+    Author: Aziz
+    Date: September 17, 2023
 
 """
 
 import pika
 import sys
 import time
-import os
-import csv
-from collections import deque
-
-from pika import callback
 from util_logger import setup_logger
-
+import logging
 
 logger, logname = setup_logger(__file__)
 
-# Declare Deque Length
-all_stream_deque = deque(maxlen=5)
-
-
 # define a callback function to be called when a message is received
-def AllStream_callback(ch, method, properties, body):
-    """ Define behavior on getting a message.
-        This function will be called each time a message is received.
-        The function must accept the four arguments shown here.
-         
-    """
+def callback(ch, method, properties, body):
+    """ Define behavior on getting a message."""
     # decode the binary message body to a string
     logger.info(f" [x] Received {body.decode()}")
+    # simulate work by sleeping for the number of dots in the message
+    time.sleep(body.count(b"."))
+    # when done with task, tell the user
+    logger.info(" [x] Done.")
+    # acknowledge the message was received and processed 
+    # (now it can be deleted from the queue)
+    ch.basic_ack(delivery_tag=method.delivery_tag)
 
-
-    # Set all stream Information
-    time_change = []
-    try: 
-        #AllStream Message
-        AllStream_message = body.decode().split(",")
-        # Check for valid time
-        if AllStream_message[1] == 'Blank':
-            # Convert to float
-            AllStream = float(AllStream_message[1])
-            # Check for valid timestamp
-            AllStream_timestamp = AllStream_message[0]
-            # Append to Deque
-            all_stream_deque.append(AllStream)
-            
-            # Check for time change from previous time
-            if len (all_stream_deque) > 1:
-                temperature_change = [
-                    all_stream_deque[i] - all_stream_deque[-1] 
-                                    for i in range(0, (len (all_stream_deque) - 1), 1)
-                ]
-                
-                              
-        # Send Confirmation Report
-        logger.info("[X] AllStream duration Received and Recorded.")
-        # Delete Message from Queue after Processing
-        ch.basic_ack(delivery_tag=method.delivery_tag)
-    
-    except Exception as e:
-        logger.error("An Error Occured While Processing time.")
-        logger.error(f"The error says: {e}")
-    
 
 # define a main function to run the program
-def main(hn: str = "localhost", qn: str = "task_queue"):
+def main(hn: str = "localhost", qn: str = "task_queue3"):
     """ Continuously listen for task messages on a named queue."""
 
     # when a statement can go wrong, use a try-except block
@@ -80,14 +41,13 @@ def main(hn: str = "localhost", qn: str = "task_queue"):
 
     # except, if there's an error, do this
     except Exception as e:
-        print()
-        logger.error("ERROR: connection to RabbitMQ server failed.")
-        logger.error(f"Verify the server is running on host={hn}.")
-        logger.error(f"The error says: {e}")
-        print()
+        logger.info()
+        logger.info("ERROR: connection to RabbitMQ server failed.")
+        logger.info(f"Verify the server is running on host={hn}.")
+        logger.info(f"The error says: {e}")
+        logger.info()
         sys.exit(1)
 
-    
     try:
         # use the connection to create a communication channel
         channel = connection.channel()
@@ -111,7 +71,7 @@ def main(hn: str = "localhost", qn: str = "task_queue"):
         # configure the channel to listen on a specific queue,  
         # use the callback function named callback,
         # and do not auto-acknowledge the message (let the callback handle it)
-        channel.basic_consume( queue=qn, on_message_callback=AllStream_callback, auto_ack=False)
+        channel.basic_consume( queue=qn, on_message_callback=callback)
 
         # print a message to the console for the user
         logger.info(" [*] Ready for work. To exit press CTRL+C")
@@ -121,33 +81,23 @@ def main(hn: str = "localhost", qn: str = "task_queue"):
 
     # except, in the event of an error OR user stops the process, do this
     except Exception as e:
-        print()
-        logger.error("ERROR: something went wrong.")
-        logger.error(f"The error says: {e}")
+        logger.info()
+        logger.info("ERROR: something went wrong.")
+        logger.info(f"The error says: {e}")
         sys.exit(1)
     except KeyboardInterrupt:
-        print()
+        logger.info()
         logger.info(" User interrupted continuous listening process.")
         sys.exit(0)
     finally:
-        logger.info("\nClosing connection. Have a good day.\n")
+        logger.info("\nClosing connection. Goodbye.\n")
         connection.close()
 
-def read_tasks_from_csv(file_name):
-    """Read tasks from a CSV file and return them as a list."""
-    tasks = []
-    with open(file_name, "r") as input_file:
-        reader = csv.reader(input_file)
-        for row in reader:
-            if row:
-                tasks.append(row[0])  # Extract the task from the first column
-    return tasks
 
 # Standard Python idiom to indicate main program entry point
 # This allows us to import this module and use its functions
 # without executing the code below.
 # If this is the program being run, then execute the code below
 if __name__ == "__main__":
-
     # call the main function with the information needed
-    main("localhost", "01-allstream_")
+    main("localhost", "earthquakes_queue")

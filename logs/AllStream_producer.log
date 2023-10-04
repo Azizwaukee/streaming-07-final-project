@@ -1,9 +1,0 @@
-2023-10-02 11:46:35,286.AllStream_producer.INFO ==================================================
-2023-10-02 11:46:35,544.AllStream_producer.INFO Today is 2023-10-02 at 11:46 AM
-2023-10-02 11:46:35,704.AllStream_producer.INFO Running on: nt Windows 10
-2023-10-02 11:46:35,896.AllStream_producer.INFO Python version:  3.10.9
-2023-10-02 11:46:36,002.AllStream_producer.INFO Python path: C:\Users\amaar\anaconda3
-2023-10-02 11:46:36,092.AllStream_producer.INFO Working dir: C:\Users\amaar\OneDrive\Desktop\NW\Data Streaming\streaming-07-final-project
-2023-10-02 11:46:36,285.AllStream_producer.INFO ==================================================
-2023-10-02 11:46:44,962.AllStream_producer.INFO Seeing if you want to monitor RabbitMQ queues
-2023-10-02 11:46:46,424.AllStream_producer.INFO Skipping header row

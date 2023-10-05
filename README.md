@@ -16,13 +16,13 @@ Date: October 4, 2023
 
 ## Design and Implement Your Producer and Consumer
 
-In GitHub, create a new repo as streaming-07 final-project
-Add a README.md 
-Clone your repo down to your machine. 
-Add a .gitignore.
-Add the Smoker-temps csv data file to the repo. 
-Create a file for your earthquake producer.
-Create 1 consumer
+1. In GitHub, create a new repo as streaming-07 final-project
+2. Add a README.md 
+3. Clone your repo down to your machine. 
+4. Add a .gitignore.
+5. Add the Smoker-temps csv data file to the repo. 
+6. Create a file for your earthquake producer.
+7. Create one consumer
 
 ## Task 6. Execute the Producer/Consumer
 

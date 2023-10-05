@@ -1,0 +1,38 @@
+2023-10-04 18:35:36,002.earthquake_producer.INFO ==================================================
+2023-10-04 18:35:36,079.earthquake_producer.INFO Today is 2023-10-04 at 06:35 PM
+2023-10-04 18:35:36,149.earthquake_producer.INFO Running on: nt Windows 10
+2023-10-04 18:35:36,234.earthquake_producer.INFO Python version:  3.10.9
+2023-10-04 18:35:36,333.earthquake_producer.INFO Python path: C:\Users\amaar\anaconda3
+2023-10-04 18:35:36,420.earthquake_producer.INFO Working dir: C:\Users\amaar\OneDrive\Desktop\NW\Data Streaming\streaming-07-final-project
+2023-10-04 18:35:36,430.earthquake_producer.INFO ==================================================
+2023-10-04 18:35:39,296.earthquake_producer.INFO Seeing if you want to monitor RabbitMQ queues
+2023-10-04 18:35:39,989.earthquake_producer.INFO Answer is y.
+2023-10-04 18:35:40,404.earthquake_producer.INFO  [x] Sent High magnitude earthquake ALERT! A magnitude was recorded by Time for place.
+2023-10-04 18:35:50,862.earthquake_producer.INFO Sent: Time to RabbitMQ.
+2023-10-04 18:35:51,208.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-09-04 05:26:08.839 for place.
+2023-10-04 18:36:01,239.earthquake_producer.INFO Sent: 2023-09-04 05:26:08.839 to RabbitMQ.
+2023-10-04 18:36:01,301.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-29 04:58:15.305 for place.
+2023-10-04 18:36:11,436.earthquake_producer.INFO Sent: 2023-08-29 04:58:15.305 to RabbitMQ.
+2023-10-04 18:36:11,473.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-27 03:09:43.247 for place.
+2023-10-04 18:36:21,705.earthquake_producer.INFO Sent: 2023-08-27 03:09:43.247 to RabbitMQ.
+2023-10-04 18:36:21,867.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-24 05:35:24.510 for place.
+2023-10-04 18:36:31,927.earthquake_producer.INFO Sent: 2023-08-24 05:35:24.510 to RabbitMQ.
+2023-10-04 18:36:31,973.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-23 08:19:30.701 for place.
+2023-10-04 18:36:42,316.earthquake_producer.INFO Sent: 2023-08-23 08:19:30.701 to RabbitMQ.
+2023-10-04 18:36:42,545.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-22 10:17:34.400 for place.
+2023-10-04 18:36:52,814.earthquake_producer.INFO Sent: 2023-08-22 10:17:34.400 to RabbitMQ.
+2023-10-04 18:36:52,850.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-21 15:45:57.264 for place.
+2023-10-04 18:37:02,920.earthquake_producer.INFO Sent: 2023-08-21 15:45:57.264 to RabbitMQ.
+2023-10-04 18:37:02,983.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-20 07:05:54.282 for place.
+2023-10-04 18:37:13,452.earthquake_producer.INFO Sent: 2023-08-20 07:05:54.282 to RabbitMQ.
+2023-10-04 18:37:13,756.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-16 14:36:59.603 for place.
+2023-10-04 18:37:24,931.earthquake_producer.INFO Sent: 2023-08-16 14:36:59.603 to RabbitMQ.
+2023-10-04 18:37:27,035.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-12 13:39:16.290 for place.
+2023-10-04 18:37:37,528.earthquake_producer.INFO Sent: 2023-08-12 13:39:16.290 to RabbitMQ.
+2023-10-04 18:37:37,797.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-12 09:42:49.454 for place.
+2023-10-04 18:37:47,851.earthquake_producer.INFO Sent: 2023-08-12 09:42:49.454 to RabbitMQ.
+2023-10-04 18:37:47,957.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-11 16:24:02.322 for place.
+2023-10-04 18:37:58,070.earthquake_producer.INFO Sent: 2023-08-11 16:24:02.322 to RabbitMQ.
+2023-10-04 18:37:58,138.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-11 01:55:29.268 for place.
+2023-10-04 18:38:08,198.earthquake_producer.INFO Sent: 2023-08-11 01:55:29.268 to RabbitMQ.
+2023-10-04 18:38:08,448.earthquake_producer.INFO  [x] Sent A earthquake was recoded by 2023-08-10 17:48:01.337 for place.

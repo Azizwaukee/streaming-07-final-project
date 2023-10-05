@@ -19,6 +19,7 @@ import time
 import logging
 
 
+
 logger, logname = setup_logger(__file__)
 
 # Set up basic configuration for logging
@@ -44,18 +45,25 @@ def offer_rabbitmq_admin_site():
         logger.info(f"Answer is {ans}.")
 
 
-def send_message(host: str, queue_name: str, message: str):
-    """
+def send_message(host: str, queue_name: str, magnitude: float, place: str):
+     """
     Creates and sends a message to the queue each execution.
     This process runs and finishes.
 
     Parameters:
         host (str): the host name or IP address of the RabbitMQ server
         queue_name (str): the name of the queue
-        message (str): the message to be sent to the queue
+        magnitude (float): the magnitude, as read from the second column in the CSV file
+        place (str): the place, as read from the third column in the CSV file
     """
+    # set the variable for the message to be sent
+    # if when highest magnitude earthquake was recorded >= 4.7, add an alert.
+     if magnitude >= str(4.7):
+        message = f"High magnitude earthquake ALERT! A magnitude was recorded by {magnitude} for {place}."
+     else:
+        message = f"A earthquake was recoded by {magnitude} for {place}."
 
-    try:
+     try:
         # create a blocking connection to the RabbitMQ server
         conn = pika.BlockingConnection(pika.ConnectionParameters(host))
         # use the connection to create a communication channel
@@ -70,13 +78,15 @@ def send_message(host: str, queue_name: str, message: str):
         ch.basic_publish(exchange="", routing_key=queue_name, body=message)
         # print a message to the console for the user
         logger.info(f" [x] Sent {message}")
-    except pika.exceptions.AMQPConnectionError as e:
+        logging.info(f"{place} record sent.")
+        # send message every 5 seconds
+        time.sleep(10)
+     except pika.exceptions.AMQPConnectionError as e:
         logger.error(f"Error: Connection to RabbitMQ server failed: {e}")
         sys.exit(1)
-    finally:
+     finally:
         # close the connection to the server
         conn.close()
-
 
 def read_earthquakes_from_csv(file_name):
     """Read earthquakes from a CSV file and return them as a list."""
@@ -101,5 +111,5 @@ if __name__ == "__main__":
     tasks = read_earthquakes_from_csv(TASKS_FILE_NAME)
 
     for task in tasks:
-        send_message("localhost", "earthquakes_queue", task)
+        send_message("localhost", "earthquakes_queue", task, "place")
         logger.info(f"Sent: {task} to RabbitMQ.")
